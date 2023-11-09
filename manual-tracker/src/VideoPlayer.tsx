@@ -85,54 +85,61 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     };
 
     return (
-        <div
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{
-                width: '100%',
-                height: 0, // 高さを0に設定し、::before 疑似要素で高さを確保します
-                position: 'relative',
-                textAlign: 'center',
-                margin: 'auto',
-                backgroundColor: 'powderblue',
-                overflow: 'hidden', // 枠からはみ出した部分は隠す
-                paddingBottom: '60%',
-            }}
-        >
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
-                <label htmlFor="idSelect">ID: </label>
-                <select id="idSelect" value={selectedId} onChange={handleIdChange}>
-                    {Array.from({ length: 10 }, (_, i) => i + 1).map((number) => (
-                        <option key={number} value={number}>
-                            {number}
-                        </option>
-                    ))}
-                </select>
+        <div>
+            <h3>Video</h3>
+            <div
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                style={{
+                    width: '100%',
+                    height: 0, // 高さを0に設定し、::before 疑似要素で高さを確保します
+                    position: 'relative',
+                    margin: 'auto',
+                    backgroundColor: 'powderblue',
+                    overflow: 'hidden', // 枠からはみ出した部分は隠す
+                    paddingBottom: '60%',
+                }}
+            >
+                {videoSrc ? (
+
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
+                        <label htmlFor="idSelect">ID: </label>
+                        <select id="idSelect" value={selectedId} onChange={handleIdChange}>
+                            {Array.from({ length: 10 }, (_, i) => i + 1).map((number) => (
+                                <option key={number} value={number}>
+                                    {number}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                ) : (
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }} />
+                )}
+                {videoSrc ? (
+                    <video
+                        ref={videoRef}
+                        src={videoSrc}
+                        style={{
+                            position: 'absolute', // 絶対位置を指定
+                            top: '50%', // 上から50%の位置に配置
+                            left: '50%', // 左から50%の位置に配置
+                            transform: 'translate(-50%, -50%)', // 中心に配置するために位置を調整
+                            width: '100%', // 親要素に対して100%の幅
+                            height: 'auto', // オリジナルのアスペクト比を保つ
+                        }}
+                        onContextMenu={handleContextMenu}
+                        controls
+                    >
+                        Your browser does not support the video tag.
+                    </video>
+                ) : (
+                    <p
+                        style={{ minWidth: '100%', minHeight: '100%' }}
+                    >
+                        Drag and drop a video file here!
+                    </p>
+                )}
             </div>
-            {videoSrc ? (
-                <video
-                    ref={videoRef}
-                    src={videoSrc}
-                    style={{
-                        position: 'absolute', // 絶対位置を指定
-                        top: '50%', // 上から50%の位置に配置
-                        left: '50%', // 左から50%の位置に配置
-                        transform: 'translate(-50%, -50%)', // 中心に配置するために位置を調整
-                        width: '100%', // 親要素に対して100%の幅
-                        height: 'auto', // オリジナルのアスペクト比を保つ
-                    }}
-                    onContextMenu={handleContextMenu}
-                    controls
-                >
-                    Your browser does not support the video tag.
-                </video>
-            ) : (
-                <p
-                    style={{ minWidth: '100%', minHeight: '100%' }}
-                >
-                    Drag and drop a video file here!
-                </p>
-            )}
         </div>
     );
 };

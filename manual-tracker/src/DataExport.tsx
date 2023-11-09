@@ -27,43 +27,46 @@ const DataExport: React.FC<DataExportProps> = ({ clickData, deleteLastData, clea
     };
 
     return (
-        <div
-            style={{
-                backgroundColor: '#d9d2e9',
-                padding: '10px',
-                margin: 'auto',
-            }}>
-            {clickData.length > 0 && (
-                <button onClick={downloadCSV}>Export to CSV</button>
-            )}
-            <br />
-            Showing the latest 5 data:
-            <table>
-                <thead>
-                    <tr>
-                        <th>Object ID</th>
-                        <th>X</th>
-                        <th>Y</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clickData.slice(-5).map((data, index) => (
-                        <tr key={index}>
-                            <td>{data.Id}</td>
-                            <td>{data.x.toFixed(2)}</td>
-                            <td>{data.y.toFixed(2)}</td>
-                            <td>{data.timestamp.toFixed(2)}</td>
+        <div>
+            <h3>Data</h3>
+            <div
+                style={{
+                    backgroundColor: '#d9d2e9',
+                    padding: '10px',
+                    //margin: 'auto',
+                }}>
+                {clickData.length > 0 && (
+                    <button onClick={downloadCSV}>Export to CSV</button>
+                )}
+                <br />
+                Showing the latest 5 data:
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Object ID</th>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>Timestamp</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            {clickData.length > 0 && (
-                <button onClick={deleteLastData}>Delete Last Data</button>
-            )}
-            {clickData.length > 0 && (
-                <button onClick={clearAllData}>Clear All</button>
-            )}
+                    </thead>
+                    <tbody>
+                        {clickData.slice(-5).map((data, index) => (
+                            <tr key={index}>
+                                <td>{data.Id}</td>
+                                <td>{data.x.toFixed(2)}</td>
+                                <td>{data.y.toFixed(2)}</td>
+                                <td>{data.timestamp.toFixed(2)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {clickData.length > 0 && (
+                    <button onClick={deleteLastData}>Delete Last Data</button>
+                )}
+                {clickData.length > 0 && (
+                    <button onClick={clearAllData}>Clear All</button>
+                )}
+            </div>
         </div>
     );
 };

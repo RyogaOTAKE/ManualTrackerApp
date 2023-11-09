@@ -26,7 +26,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div
+      style={
+        {
+          padding: '10px',
+        }
+      }>
       <TitleBar title="Manual Tracker" />
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
         <div style={{ flex: 8, paddingRight: '10px' }}> {/* 80% の幅を占める */}

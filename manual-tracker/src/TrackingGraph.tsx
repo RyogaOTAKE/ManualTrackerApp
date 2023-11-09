@@ -29,37 +29,40 @@ const TrackingGraph: React.FC<TrackingGraphProps> = ({ clickData }) => {
     };
 
     return (
-        <ScatterChart
-            width={600}
-            height={400}
-            margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-            }}
-        >
-            <CartesianGrid />
-            <XAxis type="number" dataKey="x" name="X Coordinate" />
-            <YAxis type="number" dataKey="y" name="Y Coordinate" reversed />
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Legend />
-            {
-                Object.keys(colorMap).map(key => {
-                    const id = Number(key);
-                    return (
-                        <Scatter
-                            key={id}
-                            name={`ID ${id}`}
-                            data={formattedData.filter(d => d.id === id).sort((a, b) => a.timestamp - b.timestamp)}
-                            fill={colorMap[id]}
-                            line={{ stroke: colorMap[id], strokeWidth: 2 }}
-                            shape="circle"
-                        />
-                    );
-                })
-            }
-        </ScatterChart>
+        <div>
+            <h3>Graph</h3>
+            <ScatterChart
+                width={400}
+                height={300}
+                margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
+                }}
+            >
+                <CartesianGrid />
+                <XAxis type="number" dataKey="x" name="X Coordinate" />
+                <YAxis type="number" dataKey="y" name="Y Coordinate" reversed />
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <Legend />
+                {
+                    Object.keys(colorMap).map(key => {
+                        const id = Number(key);
+                        return (
+                            <Scatter
+                                key={id}
+                                name={`ID ${id}`}
+                                data={formattedData.filter(d => d.id === id).sort((a, b) => a.timestamp - b.timestamp)}
+                                fill={colorMap[id]}
+                                line={{ stroke: colorMap[id], strokeWidth: 2 }}
+                                shape="circle"
+                            />
+                        );
+                    })
+                }
+            </ScatterChart>
+        </div>
     );
 };
 
