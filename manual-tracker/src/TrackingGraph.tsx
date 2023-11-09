@@ -16,26 +16,16 @@ const TrackingGraph: React.FC<TrackingGraphProps> = ({ clickData }) => {
     }));
 
     const colorMap: { [id: number]: string } = {
-        1: '#004c6d',  // dark cerulean
-        2: '#a43820',  // siena
-        3: '#00563f',  // deep green
-        4: '#540b0e',  // dark red
-        5: '#2c5f2d',  // hunter green
-        6: '#8a3a3b',  // dark terra cotta
-        7: '#5a1a1a',  // dark brown
-        8: '#355070',  // lapis blue
-        9: '#25342b',  // dark jungle green
-        10: '#1c1c1c', // eerie black
-        11: '#483c32', // taupe
-        12: '#3c1414', // dark sienna
-        13: '#363457', // independence
-        14: '#3b3a30', // olive drab
-        15: '#2f2504', // dark olive
-        16: '#353839', // onyx
-        17: '#3b444b', // arsenic
-        18: '#423e37', // old burgundy
-        19: '#3c2f2f', // dark liver
-        20: '#2b3a67', // dark sapphire
+        1: '#D32F2F', // red
+        2: '#0097A7', // cyan
+        3: '#C2185B', // pink
+        4: '#303F9F', // indigo
+        5: '#0288D1', // light blue
+        6: '#7B1FA2', // purple
+        7: '#512DA8', // deep purple
+        8: '#1976D2', // blue
+        9: '#00796B', // teal
+        10: '#388E3C', // green
     };
 
     return (
