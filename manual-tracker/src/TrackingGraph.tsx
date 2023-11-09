@@ -16,26 +16,26 @@ const TrackingGraph: React.FC<TrackingGraphProps> = ({ clickData }) => {
     }));
 
     const colorMap: { [id: number]: string } = {
-        1: '#f4cccc',  // pale red
-        2: '#cfe2f3',  // pale blue
-        3: '#d9ead3',  // pale green
-        4: '#fff2cc',  // pale yellow
-        5: '#d9d2e9',  // pale purple
-        6: '#ead1dc',  // pale pink
-        7: '#fce5cd',  // pale orange
-        8: '#c9daf8',  // pale azure
-        9: '#cfe7f3',  // pale cyan
-        10: '#d9e2d2', // pale olive
-        11: '#e6e0d4', // pale taupe
-        12: '#d9d9d9', // pale grey
-        13: '#e2efda', // pale mint
-        14: '#d9dbd3', // pale lime
-        15: '#f9cb9c', // pale coral
-        16: '#ffe599', // pale gold
-        17: '#b6d7a8', // pale sage
-        18: '#a4c2f4', // pale cerulean
-        19: '#b4a7d6', // pale mauve
-        20: '#a2c4c9', // pale teal
+        1: '#004c6d',  // dark cerulean
+        2: '#a43820',  // siena
+        3: '#00563f',  // deep green
+        4: '#540b0e',  // dark red
+        5: '#2c5f2d',  // hunter green
+        6: '#8a3a3b',  // dark terra cotta
+        7: '#5a1a1a',  // dark brown
+        8: '#355070',  // lapis blue
+        9: '#25342b',  // dark jungle green
+        10: '#1c1c1c', // eerie black
+        11: '#483c32', // taupe
+        12: '#3c1414', // dark sienna
+        13: '#363457', // independence
+        14: '#3b3a30', // olive drab
+        15: '#2f2504', // dark olive
+        16: '#353839', // onyx
+        17: '#3b444b', // arsenic
+        18: '#423e37', // old burgundy
+        19: '#3c2f2f', // dark liver
+        20: '#2b3a67', // dark sapphire
     };
 
     return (
