@@ -105,7 +105,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
                         <label htmlFor="idSelect">ID: </label>
                         <select id="idSelect" value={selectedId} onChange={handleIdChange}>
-                            {Array.from({ length: 10 }, (_, i) => i + 1).map((number) => (
+                            {Array.from({ length: 100 }, (_, i) => i + 1).map((number) => (
                                 <option key={number} value={number}>
                                     {number}
                                 </option>
