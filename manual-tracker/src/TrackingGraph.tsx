@@ -26,6 +26,7 @@ const TrackingGraph: React.FC<TrackingGraphProps> = ({ clickData }) => {
         8: '#1976D2', // blue
         9: '#00796B', // teal
         10: '#388E3C', // green
+        11: '#AFB42B', // lime
     };
 
     return (

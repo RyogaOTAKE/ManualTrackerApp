@@ -87,6 +87,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     return (
         <div>
             <h3>Video</h3>
+            <div style={{ position: 'relative', top: 0, left: 0, right: 0 }}>
+                <label htmlFor="idSelect">ID: </label>
+                <select id="idSelect" value={selectedId} onChange={handleIdChange}>
+                    {Array.from({ length: 100 }, (_, i) => i + 1).map((number) => (
+                        <option key={number} value={number}>
+                            {number}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <div
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
@@ -100,16 +110,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
                     paddingBottom: '60%',
                 }}
             >
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0 }}>
-                    <label htmlFor="idSelect">ID: </label>
-                    <select id="idSelect" value={selectedId} onChange={handleIdChange}>
-                        {Array.from({ length: 100 }, (_, i) => i + 1).map((number) => (
-                            <option key={number} value={number}>
-                                {number}
-                            </option>
-                        ))}
-                    </select>
-                </div>
                 {videoSrc ? (
                     <video
                         ref={videoRef}
@@ -119,7 +119,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
                             top: '50%', // 上から50%の位置に配置
                             left: '50%', // 左から50%の位置に配置
                             transform: 'translate(-50%, -50%)', // 中心に配置するために位置を調整
-                            width: '100%', // 親要素に対して100%の幅
+                            width: '80%', // 親要素に対して80%の幅
                             height: 'auto', // オリジナルのアスペクト比を保つ
                         }}
                         onContextMenu={handleContextMenu}
