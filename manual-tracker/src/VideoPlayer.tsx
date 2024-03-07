@@ -5,6 +5,7 @@ import { ClickData, VideoPlayerProps } from './types.d';
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName }) => {
     const [videoSrc, setVideoSrc] = useState<string | null>(null);
     const [selectedId, setSelectedId] = useState<number>(1); // デフォルトは1
+    const [seekTime, setSeekTime] = useState<string>('');
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -19,9 +20,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     useEffect(() => {
         // キーボードイベントの登録
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            if (event.key === 'ArrowRight'
+                || event.key === 'ArrowLeft'
+                || event.key === 'f'
+                || event.key === 'b'
+                || event.key === 'r') {
                 event.preventDefault();
-                moveFrame(event.key === 'ArrowRight' ? 'forward' : 'backward');
+                if (event.key === 'r') {
+                    jumpToTime();
+                } else {
+                    moveFrame((event.key === 'ArrowRight' || event.key === 'f') ? 'forward' : 'backward');
+                }
             }
         };
 
@@ -30,7 +39,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []); // フレームレートが変わるたびにイベントリスナーを更新
+    }, [seekTime]); // フレームレートが変わるたびにイベントリスナーを更新
+
+    // 指定した時間に動画をジャンプさせるメソッドです。
+    const jumpToTime = () => {
+        if (videoRef.current && seekTime) {
+            const time = parseFloat(seekTime);
+            if (!isNaN(time)) {
+                videoRef.current.currentTime = time;
+            }
+        }
+    };
+
+    // 時間を変更するためのハンドラー関数です。
+    const handleSeekTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSeekTime(event.target.value);
+    };
 
     const handleDragOver = (event: React.DragEvent) => {
         event.preventDefault();
@@ -87,6 +111,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     return (
         <div>
             <h3>Video</h3>
+            <div style={{ marginBottom: '10px' }}>
+                <label htmlFor="timeInput">Time (seconds): </label>
+                <input
+                    id="timeInput"
+                    type="text"
+                    value={seekTime}
+                    onChange={handleSeekTimeChange}
+                    style={{ marginRight: '10px' }}
+                />
+                <button onClick={jumpToTime}>Jump to Time</button>
+            </div>
             <div style={{ position: 'relative', top: 0, left: 0, right: 0 }}>
                 <label htmlFor="idSelect">ID: </label>
                 <select id="idSelect" value={selectedId} onChange={handleIdChange}>
@@ -119,8 +154,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
                             top: '50%', // 上から50%の位置に配置
                             left: '50%', // 左から50%の位置に配置
                             transform: 'translate(-50%, -50%)', // 中心に配置するために位置を調整
-                            width: '80%', // 親要素に対して80%の幅
-                            height: 'auto', // オリジナルのアスペクト比を保つ
+                            width: 'auto', // 親要素に対して80%の幅
+                            height: '100%', // オリジナルのアスペクト比を保つ
                         }}
                         onContextMenu={handleContextMenu}
                         controls
