@@ -46,12 +46,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     useEffect(() => {
         if (isPlayingBackwards) {
             // 逆再生を開始
-            const playbackRate = 0.04; // 逆再生の速度、適宜調整
+            const playbackRate = 1/29.97; // 逆再生の速度、適宜調整
             intervalRef.current = setInterval(() => {
                 if (videoRef.current) {
                     videoRef.current.currentTime -= playbackRate;
                 }
-            }, 1/29.97); // 約30msごとに更新、適宜調整
+            }, 1/29.97*1000); // 約30msごとに更新、適宜調整
         } else {
             // 逆再生を停止
             if (intervalRef.current) {
