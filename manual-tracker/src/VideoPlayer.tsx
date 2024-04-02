@@ -6,7 +6,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
     const [videoSrc, setVideoSrc] = useState<string | null>(null);
     const [selectedId, setSelectedId] = useState<number>(1); // デフォルトは1
     const [seekTime, setSeekTime] = useState<string>('');
+    const [isPlayingBackwards, setIsPlayingBackwards] = useState<boolean>(false); // 逆再生状態
     const videoRef = useRef<HTMLVideoElement>(null);
+    const intervalRef = useRef<NodeJS.Timer | null>(null);
 
     useEffect(() => {
         // コンポーネントのアンマウント時にオブジェクトURLを解放する
@@ -40,6 +42,35 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [seekTime]); // フレームレートが変わるたびにイベントリスナーを更新
+
+    useEffect(() => {
+        if (isPlayingBackwards) {
+            // 逆再生を開始
+            const playbackRate = 0.033; // 逆再生の速度、適宜調整
+            intervalRef.current = setInterval(() => {
+                if (videoRef.current) {
+                    videoRef.current.currentTime -= playbackRate;
+                }
+            }, 30); // 約30msごとに更新、適宜調整
+        } else {
+            // 逆再生を停止
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        }
+
+        return () => {
+            // コンポーネントがアンマウントされた時にタイマーをクリアする
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, [isPlayingBackwards]);
+
+    // 逆再生の状態を切り替える関数
+    const togglePlaybackDirection = () => {
+        setIsPlayingBackwards(!isPlayingBackwards);
+    };
 
     // 指定した時間に動画をジャンプさせるメソッドです。
     const jumpToTime = () => {
@@ -122,6 +153,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
                 />
                 <button onClick={jumpToTime}>Jump to Time</button>
             </div>
+            <button onClick={togglePlaybackDirection}>
+                {isPlayingBackwards ? "正再生" : "逆再生"}
+            </button>
             <div style={{ position: 'relative', top: 0, left: 0, right: 0 }}>
                 <label htmlFor="idSelect">ID: </label>
                 <select id="idSelect" value={selectedId} onChange={handleIdChange}>
