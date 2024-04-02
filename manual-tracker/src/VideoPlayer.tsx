@@ -104,7 +104,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onVideoClick, changeVideoName
         if (videoRef.current) {
             const frameTime = 1 / 29.97;
             const currentTime = videoRef.current.currentTime;
-            videoRef.current.currentTime = direction === 'forward' ? currentTime + frameTime : currentTime - frameTime;
+            videoRef.current.currentTime = direction === 'forward' ? currentTime + frameTime*10 : currentTime - frameTime*10;
         }
     };
 
